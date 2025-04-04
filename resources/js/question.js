@@ -19,8 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
     popup.id = 'popup';
     popup.className = 'hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center';
     popup.innerHTML = `
+    <style>
+   #loader {  
+   /* display: none;  hidden by default */  
+    border: 16px solid #f3f3f3; /* Light grey */  
+    border-top: 16px solid #3498db; /* Blue */  
+    border-radius: 50%;  
+    width: 50px;  
+    height: 50px;  
+    animation: spin 2s linear infinite; /* Spin animation */  
+}  
+
+@keyframes spin {  
+    0% { transform: rotate(0deg); }  
+    100% { transform: rotate(360deg); }  
+}  
+</style>
         <div id="popupContent" class="bg-white p-6 m-100 rounded shadow-lg text-center" style="max-width:80%">
             <p id="popupText" class="text-lg font-semibold mb-4"></p>
+            <div id="loader" class="mx-auto"></div>  
+
             <form id="popupForm" class="mt-4">
                 <img id="popupImg" class="popupImg mx-auto" src="" style="max-width:300px" alt="">
                 <input type="text" id="popupInput" class="border border-gray-300 rounded px-4 py-2 w-full mb-4 " placeholder="Enter your response" />
@@ -43,16 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const popupContent = document.getElementById('popupContent');
     const submitPopup = document.getElementById('submitPopup');
     const popupImg = document.getElementById('popupImg');
+    const loader = document.getElementById('loader');
 
     // Add click event listener to all elements with a 'q' attribute
     questions.forEach((question) => {
         question.addEventListener('click', () => {
+            popup.classList.remove('hidden'); // Show the popup
+            popupText.textContent = 'Loading...'; // Set the popup text
+            popupInput.style.display = 'none';
+            submitPopup.style.display = 'none';
+            popupImg.style.display = 'none';
+            loader.style.display = '';
+
+
             const qValue = question.getAttribute('question'); // Get the 'q' attribute value
             if (qValue) {
                 // Fetch the text from question.html with the 'q' parameter
                 fetch(API_URI + `getquestion/${qValue}`)
                     .then(response => response.json())
                     .then(data => {
+                        loader.style.display = 'none';
+
                         if (data.question) { // Check if the response contains a true value
                             popupText.textContent = data.question; // Set the popup text
                             popup.classList.remove('hidden'); // Show the popup
@@ -67,7 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (true){
                                 
                                 popupImg.style.display = '';
-                                popupImg.setAttribute('src',image);
+                                popupImg.setAttribute('src',data.info);
+                            }
+                            else{
+                                popupImg.style.display = 'none';
+                                popupImg.setAttribute('src',"");
+
                             }
                         }
                         else{
@@ -168,3 +202,17 @@ document.addEventListener('DOMContentLoaded', () => {
 },500)
 });
 
+function UrlExists(url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    //http.send();
+    http.onreadystatechange = function() {
+        if (http.readyState === 4) {
+          return (http.status === 200);
+        }
+        return false;
+      };
+
+
+}
