@@ -20,21 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
     popup.className = 'hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center';
     popup.innerHTML = `
     <style>
-   #loader {  
-   /* display: none;  hidden by default */  
-    border: 16px solid #f3f3f3; /* Light grey */  
-    border-top: 16px solid #3498db; /* Blue */  
-    border-radius: 50%;  
-    width: 50px;  
-    height: 50px;  
-    animation: spin 2s linear infinite; /* Spin animation */  
-}  
+        #loader {  
+        /* display: none;  hidden by default */  
+            border: 16px solid #f3f3f3; /* Light grey */  
+            border-top: 16px solid #3498db; /* Blue */  
+            border-radius: 50%;  
+            width: 50px;  
+            height: 50px;  
+            animation: spin 2s linear infinite; /* Spin animation */  
+        }  
 
-@keyframes spin {  
-    0% { transform: rotate(0deg); }  
-    100% { transform: rotate(360deg); }  
-}  
-</style>
+        @keyframes spin {  
+            0% { transform: rotate(0deg); }  
+            100% { transform: rotate(360deg); }  
+        }  
+        </style>
         <div id="popupContent" class="bg-white p-6 m-100 rounded shadow-lg text-center" style="max-width:80%">
             <p id="popupText" class="text-lg font-semibold mb-4"></p>
             <div id="loader" class="mx-auto"></div>  
