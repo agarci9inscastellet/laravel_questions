@@ -15,11 +15,11 @@ class QuestionApiController extends Controller
     public function show($id)
     {
         $question = Question::find($id);
-        $info = $question->answer==strtolower("info")?$question->url:false;
+        $info = $question->answer==strtolower("info");
         if (!$question) {
             return response()->json(['error' => 'Pregunta no trobada'], 404);
         }
-        return response()->json(['question' =>  $question->question,'info' => $info]);
+        return response()->json(['question' =>  $question->question,'info' => $info,'image' => $question->image]);
     }
 
 

@@ -64,6 +64,7 @@ class QuestionController extends Controller
             'question' => $request->input('question'),
             'answer' => $request->input('answer'),
             'url' => $request->input('url'),
+            'image' => $request->input('image'),
         ]);
  
 
@@ -113,6 +114,8 @@ class QuestionController extends Controller
             'question' => $request->input('question'),
             'answer' => $request->input('answer'),
             'url' => $request->input('url'),
+            'image' => $request->input('image'),
+
         ]);
 
         // Redirigeix a l'índex de preguntes amb un missatge d'èxit

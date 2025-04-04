@@ -17,6 +17,7 @@ class Question extends Model
         'answer',
         'user_id',
         'url',
+        'image',
     ];
 
 
