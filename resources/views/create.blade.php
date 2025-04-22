@@ -23,10 +23,13 @@
                 </div>
             </div>
 
-            <select id="dropdown" onchange="showInfo()">  
-                <option value="question" checked>Question</option>  
-                <option value="info">Object Info</option>  
-            </select>   
+  
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-12" id="option">
+                <select id="dropdown" onchange="showInfo(true)"  >  
+                    <option value="question" checked>Question</option>  
+                    <option value="info">Object Info</option>  
+                </select> 
+            </div>
 
             <div class="col-xs-12 col-sm-12 col-md-6 mt-2" id="answer">
                 <div class="form-group">
@@ -57,7 +60,7 @@
     </form>
 </div>
 <script>
-    function showInfo() {
+    function showInfo(clear) {
         var urlDiv = document.getElementById("url"); // Get the info div
         var answerDiv = document.getElementById("answer"); // Get the info div
         var url_input = document.getElementById("url_input"); // Get the info div
@@ -73,9 +76,11 @@
             // Show info when the info option is selected  
             urlDiv.style.display = ""; // Show the info div  
             answerDiv.style.display = ""; // Show the info div  
-            answer_input.value = ""; // Show the info div
-            url_input.value = ""; // Show the info div
+            if (clear) {
+                answer_input.value = ""; // Show the info div
+                url_input.value = ""; // Show the info div
             } 
+        } 
          
     }
 </script>

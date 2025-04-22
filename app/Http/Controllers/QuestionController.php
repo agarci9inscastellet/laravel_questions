@@ -29,8 +29,15 @@ class QuestionController extends Controller
         // $user = User::findOrFail(1);
         // $user->fill(['password' => Hash::make($password)])->save();
 
+        if (auth()->user()->id == 1) {
+            // Si l'usuari és administrador, mostra totes les preguntes
+            $questions = Question::all();
+        } else {
+            // Si l'usuari no és administrador, mostra només les seves preguntes
+            $questions = auth()->user()->questions()->get();
+        }
         //$questions = Question::all();
-        $questions = auth()->user()->questions()->get();
+        //$questions = auth()->user()->questions()->get();
         //
         return view('list', ['questions' => $questions]);
     }
@@ -66,7 +73,7 @@ class QuestionController extends Controller
             'url' => $request->input('url'),
             'image' => $request->input('image'),
         ]);
- 
+
 
         // Redirigeix a l'índex de preguntes amb un missatge d'èxit
         return redirect()->route('questions.index')->with('success', 'Pregunta creada correctament.');
@@ -87,9 +94,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //$this->authorize('uptade', $question);  
 
-        // Mostra el formulari per editar la pregunta especificada
         return view('edit', compact('question'));
     }
 
@@ -99,14 +104,14 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         //
-        //$this->authorize('uptade', $question);  
+        //$this->authorize('uptade', $question);
 
 
         $request->validate([
             'question' => 'required|string',
             'answer' => 'required|string',
             'url' =>'required|string',
-            
+
         ]);
 
         // Actualitza la pregunta especificada
@@ -127,7 +132,7 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        $this->authorize('delete', $question);  
+        $this->authorize('delete', $question);
 
         //
         // Elimina la pregunta especificada
@@ -144,7 +149,7 @@ setlocale(LC_CTYPE, 'ca_ES');
 echo $plain;
 $plain = remove_accents("Làönârdó Dà Vïncì");
 echo $plain;
-   
+
        // $plain=  trim(iconv('UTF-8', 'ASCII//TRANSLIT', mb_strtolower($val, 'UTF-8')));
         $answerplain=  trim(iconv('UTF-8', 'ASCII//TRANSLIT', mb_strtolower( "Làönârdó Dà Vïncì", 'UTF-8')));
 
