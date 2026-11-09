@@ -15,7 +15,7 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('x', function (Blueprint $table) {
             $table->id(); // Auto-incrementing primary key
             $table->text('question'); // Optional column for additional details
             $table->string('answer'); // Column for the question
